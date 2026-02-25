@@ -3,90 +3,211 @@
 ## AIM
 To develop a convolutional deep neural network (CNN) for image classification and to verify the response for new images.
 
-##   PROBLEM STATEMENT AND DATASET
-Include the Problem Statement and Dataset.
-
-## Neural Network Model
-Include the neural network model diagram.
-
 ## DESIGN STEPS
-### STEP 1: 
 
-Write your own steps
-
-### STEP 2: 
-
-
-
-### STEP 3: 
-
-
-
-### STEP 4: 
-
-
-
-### STEP 5: 
-
-
-
-### STEP 6: 
-
-
-
+1. Load and Preprocess Data
+2. Get the shape of the first image in the training dataset
+3. Get the shape of the first image in the test dataset
+4. Train the Model
+5. Test the Model
+6. Predict on a Single Image
+7. Display the image
 
 
 ## PROGRAM
 
-### Name:
+### Name: SUDHISHNA P
 
-### Register Number:
+### Register Number: 212224040336
 
 ```python
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torchvision
+import torchvision.transforms as transforms
+from torch.utils.data import DataLoader
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.metrics import confusion_matrix, classification_report
+import seaborn as sns
+
+## Step 1: Load and Preprocess Data
+# Define transformations for images
+transform = transforms.Compose([
+    transforms.ToTensor(),          # Convert images to tensors
+    transforms.Normalize((0.5,), (0.5,))  # Normalize images
+])
+# Load Fashion-MNIST dataset
+train_dataset = torchvision.datasets.FashionMNIST(root="./data", train=True, transform=transform, download=True)
+test_dataset = torchvision.datasets.FashionMNIST(root="./data", train=False, transform=transform, download=True)
+# Get the shape of the first image in the training dataset
+image, label = train_dataset[0]
+print(image.shape)
+print(len(train_dataset))
+
+# Get the shape of the first image in the test dataset
+image, label = test_dataset[0]
+print(image.shape)
+print(len(test_dataset))
+# Create DataLoader for batch processing
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
+
+
 class CNNClassifier(nn.Module):
-    def __init__(self, input_size):
-        super(CNNClassifier, self).__init__()
-        #Include your code here
+    def __init__(self):   # FIXED
+        super(CNNClassifier, self).__init__()   # FIXED
+
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1)
+        self.conv3 = nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1)
+        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
+
+        self.fc1 = nn.Linear(128 * 3 * 3, 128)
+        self.fc2 = nn.Linear(128, 64)
+        self.fc3 = nn.Linear(64, 10)
 
     def forward(self, x):
-        #Include your code here
+        x = self.pool(torch.relu(self.conv1(x)))
+        x = self.pool(torch.relu(self.conv2(x)))
+        x = self.pool(torch.relu(self.conv3(x)))
+        x = x.view(x.size(0), -1)
+        x = torch.relu(self.fc1(x))
+        x = torch.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
 
+# Initialize model
+from torchsummary import summary
+model = CNNClassifier()
 
+# Move model to GPU if available
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+    model.to(device)
 
-# Initialize the Model, Loss Function, and Optimizer
-model =
-criterion =
-optimizer =
+print('Name:Sudhishna P')
+print('Register Number: 212224040336 ')
+summary(model, input_size=(1, 28, 28))
 
-# Train the Model
+# Initialize model, loss function, and optimizer
+model =CNNClassifier()
+criterion = nn.CrossEntropyLoss()
+optimizer =optim.Adam(model.parameters(),lr=0.001)
+
+## Step 3: Train the Model
 def train_model(model, train_loader, num_epochs=3):
-
-    # write your code here
-
-        
-        
-        
-        print('Name:        ')
-        print('Register Number:       ')
+    #model.train()
+    for epoch in range(num_epochs):
+        model.train()
+        running_loss = 0.0
+        for i, (images, labels) in enumerate(train_loader):
+            optimizer.zero_grad()
+            outputs = model(images)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+            running_loss += loss.item()
+        print('Name: Sudhishna P')
+        print('Register Number: 212224040336  ')
         print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {running_loss/len(train_loader):.4f}')
 
+# Train the model
+train_model(model, train_loader)
+
+## Step 4: Test the Model
+def test_model(model, test_loader):
+    model.eval()
+    correct = 0
+    total = 0
+    all_preds = []
+    all_labels = []
+
+    with torch.no_grad():
+        for images, labels in test_loader:
+            outputs = model(images)
+            _, predicted = torch.max(outputs, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+            all_preds.extend(predicted.cpu().numpy())
+            all_labels.extend(labels.cpu().numpy())
+
+    accuracy = correct / total
+    print('Name: Sudhishna P')
+    print('Register Number: 212224040336')
+    print(f'Test Accuracy: {accuracy:.4f}')
+
+    # Compute confusion matrix
+    cm = confusion_matrix(all_labels, all_preds)
+    plt.figure(figsize=(8, 6))
+    print('Name: Sudhishna P')
+    print('Register Number: 212224040336 ')
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=test_dataset.classes, yticklabels=test_dataset.classes)
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.title('Confusion Matrix')
+    plt.show()
+
+    # Print classification report
+    print('Name: Sudhishna P')
+    print('Register Number: 212224040336      ')
+    print("Classification Report:")
+    print(classification_report(all_labels, all_preds, target_names=test_dataset.classes))
+
+# Evaluate the model
+test_model(model, test_loader)
+
+## Step 5: Predict on a Single Image
+import matplotlib.pyplot as plt
+def predict_image(model, image_index, dataset):
+    model.eval()
+    image, label = dataset[image_index]
+    with torch.no_grad():
+        output = model(image.unsqueeze(0))  # Add batch dimension
+        _, predicted = torch.max(output, 1)
+    class_names = dataset.classes
+
+    # Display the image
+    print('Name:Sudhishna P')
+    print('Register Number: 212224040336 ')
+    plt.imshow(image.squeeze(), cmap="gray")
+    plt.title(f'Actual: {class_names[label]}\nPredicted: {class_names[predicted.item()]}')
+    plt.axis("off")
+    plt.show()
+    print(f'Actual: {class_names[label]}, Predicted: {class_names[predicted.item()]}')
+
+# Example Prediction
+predict_image(model, image_index=80, dataset=test_dataset)
 ```
 
 ### OUTPUT
 
+<img width="808" height="106" alt="image" src="https://github.com/user-attachments/assets/976b2bd2-a9ad-469b-9035-e662f9c41e2c" />
+<img width="574" height="68" alt="image" src="https://github.com/user-attachments/assets/11a0ddb8-0efa-4453-9dfa-c5d6ebc327f6" />
+<img width="803" height="71" alt="image" src="https://github.com/user-attachments/assets/3b19b3f2-1c40-4b2e-96a1-ef85c6c5bc59" />
+<img width="641" height="502" alt="image" src="https://github.com/user-attachments/assets/5d570c3b-87de-4a63-b2dc-405936bb57fc" />
+
+
 ## Training Loss per Epoch
 
-Include the Training Loss per epoch
+<img width="566" height="198" alt="image" src="https://github.com/user-attachments/assets/2ced2292-1ded-4c83-979a-4df0a8cb2e2a" />
 
-## Confusion Matrix
 
-Include confusion matrix here
+## Confusion Matrix<img width="987" height="828" alt="image" src="https://github.com/user-attachments/assets/f8b5f68f-37e4-4b81-8fb7-e1e0ba06e81b" />
+
+
 
 ## Classification Report
-Include classification report here
+
+<img width="791" height="419" alt="image" src="https://github.com/user-attachments/assets/b65e490c-5d8e-45f8-9259-5362e6009be4" />
+
 
 ### New Sample Data Prediction
-Include your sample input and output here
+<img width="560" height="620" alt="image" src="https://github.com/user-attachments/assets/8e4aecb9-12c7-4649-89f1-af20d4a950b7" />
+/>
+
 
 ## RESULT
-Include your result here
+The Convolutional Neural Network (CNN) model was successfully trained and achieved good classification performance on the given image dataset.
+
