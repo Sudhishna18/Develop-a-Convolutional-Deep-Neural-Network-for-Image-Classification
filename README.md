@@ -191,25 +191,29 @@ predict_image(model, image_index=80, dataset=test_dataset)
 <img width="808" height="106" alt="image" src="https://github.com/user-attachments/assets/976b2bd2-a9ad-469b-9035-e662f9c41e2c" />
 <img width="574" height="68" alt="image" src="https://github.com/user-attachments/assets/11a0ddb8-0efa-4453-9dfa-c5d6ebc327f6" />
 <img width="803" height="71" alt="image" src="https://github.com/user-attachments/assets/3b19b3f2-1c40-4b2e-96a1-ef85c6c5bc59" />
-<img width="782" height="555" alt="image" src="https://github.com/user-attachments/assets/cad6b412-b476-4162-a454-3107b4b0f12f" />
+<img width="641" height="502" alt="Screenshot 2026-02-25 213407" src="https://github.com/user-attachments/assets/681a1689-a231-4b72-b624-208644158c97" />
+
 
 ## Training Loss per Epoch
 
-<img width="809" height="228" alt="image" src="https://github.com/user-attachments/assets/80f48401-0795-4771-a29e-f1fe8f08759b" />
+<img width="566" height="198" alt="Screenshot 2026-02-25 213718" src="https://github.com/user-attachments/assets/75fe4c6a-a5ac-4a17-b60a-82d425ea6a37" />
+
 
 
 ## Confusion Matrix
 
-<img width="773" height="733" alt="image" src="https://github.com/user-attachments/assets/30af5efa-ecfc-41e4-89e2-90a65e515e35" />
+<img width="987" height="828" alt="Screenshot 2026-02-25 213906" src="https://github.com/user-attachments/assets/1d467117-40e8-420b-be93-1e969606840d" />
+
 
 
 ## Classification Report
 
-<img width="771" height="459" alt="image" src="https://github.com/user-attachments/assets/237f73f3-2c1d-48d6-a6e0-786d29b6d44d" />
+<img width="791" height="419" alt="Screenshot 2026-02-25 213941" src="https://github.com/user-attachments/assets/6cce8cd2-f2c8-4af2-a218-cf511698b32a" />
+
 
 ### New Sample Data Prediction
+<img width="560" height="620" alt="Screenshot 2026-02-25 214053" src="https://github.com/user-attachments/assets/9231b2a3-4dbd-45f4-950f-d217816b0dfc" />
 
-<img width="609" height="632" alt="image" src="https://github.com/user-attachments/assets/1a03d113-068e-453a-be14-ed451c34f25e" />
 
 
 ## RESULT
