@@ -3,6 +3,11 @@
 ## AIM
 To develop a convolutional deep neural network (CNN) for image classification and to verify the response for new images.
 
+## PROBLEM STATEMENT AND DATASET
+Image classification is a fundamental task in computer vision where images are assigned to predefined classes. The objective of this project is to develop a Convolutional Neural Network (CNN) for image classification and to verify its performance by predicting and analyzing the response for new unseen images using appropriate evaluation metrics.
+## Neural Network Model
+<img width="998" height="698" alt="image" src="https://github.com/user-attachments/assets/1644c565-424d-428c-975e-a8337ead2c39" />
+
 ## DESIGN STEPS
 
 1. Load and Preprocess Data
@@ -16,7 +21,7 @@ To develop a convolutional deep neural network (CNN) for image classification an
 
 ## PROGRAM
 
-### Name: SUDHISHNA P
+### Name: Sudhishna P
 
 ### Register Number: 212224040336
 
@@ -87,7 +92,7 @@ if torch.cuda.is_available():
     device = torch.device("cuda")
     model.to(device)
 
-print('Name:Sudhishna P')
+print('Name: Sudhishna P')
 print('Register Number: 212224040336 ')
 summary(model, input_size=(1, 28, 28))
 
@@ -110,7 +115,7 @@ def train_model(model, train_loader, num_epochs=3):
             optimizer.step()
             running_loss += loss.item()
         print('Name: Sudhishna P')
-        print('Register Number: 212224040336  ')
+        print('Register Number: 212224040336 ')
         print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {running_loss/len(train_loader):.4f}')
 
 # Train the model
@@ -142,7 +147,7 @@ def test_model(model, test_loader):
     cm = confusion_matrix(all_labels, all_preds)
     plt.figure(figsize=(8, 6))
     print('Name: Sudhishna P')
-    print('Register Number: 212224040336 ')
+    print('Register Number: 212224040336')
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=test_dataset.classes, yticklabels=test_dataset.classes)
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
@@ -151,7 +156,7 @@ def test_model(model, test_loader):
 
     # Print classification report
     print('Name: Sudhishna P')
-    print('Register Number: 212224040336      ')
+    print('Register Number: 212224040336 ')
     print("Classification Report:")
     print(classification_report(all_labels, all_preds, target_names=test_dataset.classes))
 
@@ -169,8 +174,8 @@ def predict_image(model, image_index, dataset):
     class_names = dataset.classes
 
     # Display the image
-    print('Name:Sudhishna P')
-    print('Register Number: 212224040336 ')
+    print('Name: Sudhishna P')
+    print('Register Number: 212224040336')
     plt.imshow(image.squeeze(), cmap="gray")
     plt.title(f'Actual: {class_names[label]}\nPredicted: {class_names[predicted.item()]}')
     plt.axis("off")
@@ -186,28 +191,26 @@ predict_image(model, image_index=80, dataset=test_dataset)
 <img width="808" height="106" alt="image" src="https://github.com/user-attachments/assets/976b2bd2-a9ad-469b-9035-e662f9c41e2c" />
 <img width="574" height="68" alt="image" src="https://github.com/user-attachments/assets/11a0ddb8-0efa-4453-9dfa-c5d6ebc327f6" />
 <img width="803" height="71" alt="image" src="https://github.com/user-attachments/assets/3b19b3f2-1c40-4b2e-96a1-ef85c6c5bc59" />
-<img width="641" height="502" alt="image" src="https://github.com/user-attachments/assets/5d570c3b-87de-4a63-b2dc-405936bb57fc" />
-
+<img width="782" height="555" alt="image" src="https://github.com/user-attachments/assets/cad6b412-b476-4162-a454-3107b4b0f12f" />
 
 ## Training Loss per Epoch
 
-<img width="566" height="198" alt="image" src="https://github.com/user-attachments/assets/2ced2292-1ded-4c83-979a-4df0a8cb2e2a" />
+<img width="809" height="228" alt="image" src="https://github.com/user-attachments/assets/80f48401-0795-4771-a29e-f1fe8f08759b" />
 
 
-## Confusion Matrix<img width="987" height="828" alt="image" src="https://github.com/user-attachments/assets/f8b5f68f-37e4-4b81-8fb7-e1e0ba06e81b" />
+## Confusion Matrix
 
+<img width="773" height="733" alt="image" src="https://github.com/user-attachments/assets/30af5efa-ecfc-41e4-89e2-90a65e515e35" />
 
 
 ## Classification Report
 
-<img width="791" height="419" alt="image" src="https://github.com/user-attachments/assets/b65e490c-5d8e-45f8-9259-5362e6009be4" />
-
+<img width="771" height="459" alt="image" src="https://github.com/user-attachments/assets/237f73f3-2c1d-48d6-a6e0-786d29b6d44d" />
 
 ### New Sample Data Prediction
-<img width="560" height="620" alt="image" src="https://github.com/user-attachments/assets/8e4aecb9-12c7-4649-89f1-af20d4a950b7" />
-/>
+
+<img width="609" height="632" alt="image" src="https://github.com/user-attachments/assets/1a03d113-068e-453a-be14-ed451c34f25e" />
 
 
 ## RESULT
 The Convolutional Neural Network (CNN) model was successfully trained and achieved good classification performance on the given image dataset.
-
